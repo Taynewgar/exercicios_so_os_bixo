@@ -2,19 +2,26 @@ import {personagens, ingredientes} from './dados.mjs'
 
 console.log("* Exercício 1 *")
 
-const misticos = buscarTodosOsMisticos(personagens)
-console.log(JSON.stringify(misticos, null, 3))
+const personagensMisticos = buscarTodosOsMisticos(personagens)
+// console.log(JSON.stringify(personagensMisticos, null, 3))
 
 console.log()
 
 console.log("* Exercício 2 *")
 
+const mistico = "MYSTIQUE"
+const guerreiro = "WARRIOR"
+const orc = "ORC"
+
+const personagensPorTipo = buscarPersonagensPorTipo(personagens, orc)
+console.log(JSON.stringify(personagensPorTipo, null, 3))
+
 console.log()
 
 console.log("* Exercício 3 *")
 
-const charsPoderesLendarios = buscarPersonagensComPoderLendario(personagens)
-console.log(JSON.stringify(charsPoderesLendarios, null, 3))
+const charsPoderesLendarios = listarPersonagensComPoderLendario(personagens)
+// console.log(JSON.stringify(charsPoderesLendarios, null, 3))
 
 console.log()
 
@@ -22,14 +29,14 @@ console.log()
 console.log("* Exercício 4 *")
 
 const soPoderes = buscarTodosOsPoderes(personagens)
-console.log(JSON.stringify(soPoderes, null, 3))
+// console.log(JSON.stringify(soPoderes, null, 3))
 
 console.log()
 
 console.log("* Exercício 5 *")
 
 const charsPorTipo = listarPersonagensPorTipo(personagens)
-console.log(JSON.stringify(charsPorTipo, null, 3))
+// console.log(JSON.stringify(charsPorTipo, null, 3))
 
 console.log()
 
@@ -43,7 +50,7 @@ console.log()
 console.log("* Exercício 7 *")
 
 const poderTotalDeCadaChar = calacularPoderTotalDoPersonagem(personagens)
-console.log(JSON.stringify(poderTotalDeCadaChar,null, 3))
+// console.log(JSON.stringify(poderTotalDeCadaChar,null, 3))
 
 console.log()
 
@@ -68,13 +75,13 @@ function buscarTodosOsMisticos(array){return array.filter(char => char.type === 
  * Crie uma função que retorne o todos os personagens POR um tipo. 
  */
 
-
+function buscarPersonagensPorTipo(array, type){return array.filter(char => char.type === type)}
 
 /**
 ------------
  * Crie uma função que retorne apenas os personagens que possuam poderes cuja raridade LEGENDARY 
  */
-function buscarPersonagensComPoderLendario(array){
+function listarPersonagensComPoderLendario(array){
     return array.filter(char => char.powers.reduce((possess, power) => { return power.rarity === "LEGENDARY" ? possess = true : possess },false))}
 
 /**
@@ -82,7 +89,9 @@ function buscarPersonagensComPoderLendario(array){
  * Crie uma função que retorne APENAS os poderes de todos os personages
  */
 
-function buscarTodosOsPoderes(array){return array.map(char => {return{"Powers": char.powers}})}
+// function buscarTodosOsPoderes(array){return array.map(char => {return{"Powers": char.powers}})}
+function buscarTodosOsPoderes(array){
+    return {"Powers": array.reduce((newArray, char) => {char.powers.forEach(power => newArray.push(power)); return newArray},[])}}
 
 /** 
  * ------------
