@@ -1,61 +1,22 @@
 import {personagens, ingredientes} from './dados.mjs'
 
-console.log("* Exercício 1 *")
-
-const personagensMisticos = buscarTodosOsMisticos(personagens)
-
-console.log("* Exercício 2 *")
-
 const mistico = "MYSTIQUE"
 const guerreiro = "WARRIOR"
 const orc = "ORC"
-
-const personagensPorTipo = buscarPersonagensPorTipo(personagens, orc)
-
-console.log("* Exercício 3 *")
-
-const charsPoderesLendarios = listarPersonagensComPoderLendario(personagens)
-
-console.log("* Exercício 4 *")
-
-const soPoderes = buscarTodosOsPoderes(personagens)
-
-console.log("* Exercício 5 *")
-
-const charsPorTipo = listarPersonagensPorTipo(personagens)
-
-console.log("* Exercício 6")
-
-const poderesPorRaridade = listarPoderesPorRaridade(personagens)
-
-console.log("* Exercício 7 *")
-
-const poderTotalDeCadaChar = calacularPoderTotalDoPersonagem(personagens)
-
-console.log("* Exercício  8 *")
-
-const crusFrescos = buscarIngredientesCrusFrescos(ingredientes)
-
-console.log("* Exercício 9 *")
-
-// da pra melhorar
-const ingredientesBonsERuins = listarIngredientesBonsERuins(ingredientes)
-
-console.log("* Exercício 10 *")
-
 const refeicao = {"garnish":[], "stew": [], "toDrink":[]}
-const refeicaoPreparada = preparandoRefeição(ingredientes, refeicao)
 
-const exercicio_1 = personagensMisticos
-const exercicio_2 = personagensPorTipo
-const exercicio_3 = charsPoderesLendarios
-const exercicio_4 = soPoderes
-const exercicio_5 = charsPorTipo
-const exercicio_6 = poderesPorRaridade
-const exercicio_7 = poderTotalDeCadaChar
-const exercicio_8 = crusFrescos
-const exercicio_9 = ingredientesBonsERuins
-const exercicio_10 = refeicaoPreparada
+const exercicio_1 = buscarTodosOsMisticos(personagens)
+const exercicio_2 = buscarPersonagensPorTipo(personagens, orc)
+const exercicio_3 = listarPersonagensComPoderLendario(personagens)
+const exercicio_4 = buscarTodosOsPoderes(personagens)
+const exercicio_5 = listarPersonagensPorTipo(personagens)
+const exercicio_6 = listarPoderesPorRaridade(personagens)
+const exercicio_7 = calcularPoderTotalDoPersonagem(personagens)
+const exercicio_8 = buscarIngredientesCrusFrescos(ingredientes)
+// da pra melhorar o 9
+const exercicio_9 = listarIngredientesBonsERuins(ingredientes)
+// da pra melhorar o 10
+const exercicio_10 = preparandoRefeição(ingredientes, refeicao)
 
 console.log(JSON.stringify(exercicio_1, null, 3))
 
@@ -135,7 +96,7 @@ function listarPoderesPorRaridade(array){ return array.reduce((obj, char) => {
  * ] 
  */
 
-function calacularPoderTotalDoPersonagem(array) { return array.map(char => {
+function calcularPoderTotalDoPersonagem(array) { return array.map(char => {
     const totalPower = char.powers.reduce((soma, power) => { return soma += parseInt(power.power)},0)
     return {"name": char.full_name, "totalPower": totalPower}
 })}
