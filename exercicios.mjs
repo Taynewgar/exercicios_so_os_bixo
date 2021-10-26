@@ -3,9 +3,6 @@ import {personagens, ingredientes} from './dados.mjs'
 console.log("* Exercício 1 *")
 
 const personagensMisticos = buscarTodosOsMisticos(personagens)
-// console.log(JSON.stringify(personagensMisticos, null, 3))
-
-console.log()
 
 console.log("* Exercício 2 *")
 
@@ -14,55 +11,54 @@ const guerreiro = "WARRIOR"
 const orc = "ORC"
 
 const personagensPorTipo = buscarPersonagensPorTipo(personagens, orc)
-console.log(JSON.stringify(personagensPorTipo, null, 3))
-
-console.log()
 
 console.log("* Exercício 3 *")
 
 const charsPoderesLendarios = listarPersonagensComPoderLendario(personagens)
-// console.log(JSON.stringify(charsPoderesLendarios, null, 3))
 
-console.log()
-
-/// Ajustar esse exercício
 console.log("* Exercício 4 *")
 
 const soPoderes = buscarTodosOsPoderes(personagens)
-// console.log(JSON.stringify(soPoderes, null, 3))
-
-console.log()
 
 console.log("* Exercício 5 *")
 
 const charsPorTipo = listarPersonagensPorTipo(personagens)
-// console.log(JSON.stringify(charsPorTipo, null, 3))
-
-console.log()
 
 console.log("* Exercício 6")
 
 const poderesPorRaridade = listarPoderesPorRaridade(personagens)
-// console.log(JSON.stringify(poderesPorRaridade, null, 4))
-
-console.log()
 
 console.log("* Exercício 7 *")
 
 const poderTotalDeCadaChar = calacularPoderTotalDoPersonagem(personagens)
-// console.log(JSON.stringify(poderTotalDeCadaChar,null, 3))
-
-console.log()
 
 console.log("* Exercício  8 *")
 
-console.log()
+const crusFrescos = buscarIngredientesCrusFrescos(ingredientes)
 
 console.log("* Exercício 9 *")
 
-console.log()
+// da pra melhorar
+const ingredientesBonsERuins = listarIngredientesBonsERuins(ingredientes)
 
 console.log("* Exercício 10 *")
+
+const refeicao = {"garnish":[], "stew": [], "toDrink":[]}
+const refeicaoPreparada = preparandoRefeição(ingredientes, refeicao)
+
+const exercicio_1 = personagensMisticos
+const exercicio_2 = personagensPorTipo
+const exercicio_3 = charsPoderesLendarios
+const exercicio_4 = soPoderes
+const exercicio_5 = charsPorTipo
+const exercicio_6 = poderesPorRaridade
+const exercicio_7 = poderTotalDeCadaChar
+const exercicio_8 = crusFrescos
+const exercicio_9 = ingredientesBonsERuins
+const exercicio_10 = refeicaoPreparada
+
+console.log(JSON.stringify(exercicio_1, null, 3))
+
 
 /** ------------ 
  * Crie uma função que retorne o todos os personagens do tipo MYSTIQUE.
@@ -150,6 +146,10 @@ function calacularPoderTotalDoPersonagem(array) { return array.map(char => {
  * Crie uma função que retorne todos os ingredientes crus(raw) que não estejam podres(rotten)
  */
 
+function buscarIngredientesCrusFrescos(array){
+    return array.filter(item => item.status === "raw" && !item.isRotten)
+}
+
 /**
  * Exercício 9
  * ------------
@@ -160,6 +160,27 @@ function calacularPoderTotalDoPersonagem(array) { return array.map(char => {
  *    rottens: [todos os ingredientes podres]
  *  }
  */
+
+function listarIngredientesBonsERuins(array){
+    return array.reduce((obj, item) => {
+        // item.isRotten ? obj["good"].push(item) : obj["rotten"].push(item);
+        if (!item.isRotten){
+            if(obj["good"]){
+                obj["good"].push(item)
+            }
+            else{
+                obj["good"] = [item]
+            }
+        }else{
+            if(obj["rotten"]){
+                obj["rotten"].push(item)
+            }
+            else{
+                obj["rotten"] = [item]
+            }
+        }
+        return obj },{})
+}
 
 /**
  * Exercício 10
@@ -177,3 +198,21 @@ function calacularPoderTotalDoPersonagem(array) { return array.map(char => {
  *    toDrink: [todas as bebidas da mesa]
  *  }
  */
+
+function preparandoRefeição(array, obj){
+    
+    return array.reduce((newObj, item) => {
+        if (!item.isRotten) {
+            if(item.status === "cooked") {                         
+                newObj.garnish.push(item)
+                
+            } else if (item.status === "raw") {                            
+                newObj.stew.push(item)
+                
+            } else {
+                newObj.toDrink.push(item)
+            }
+        }
+        return newObj;
+    },obj)
+}
